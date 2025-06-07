@@ -11,13 +11,9 @@ const FolderModel = sequelize.define(
     },
     name: Sequelize.STRING,
     path: Sequelize.STRING,
-    isfather: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-    },
-    childrens: {
-      type: Sequelize.ARRAY(Sequelize.INTEGER),
-      defaultValue: [],
+    idFather: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
     },
   },
   {
@@ -25,5 +21,15 @@ const FolderModel = sequelize.define(
     tableName: "folder",
   }
 );
+
+FolderModel.hasMany(FolderModel, {
+  foreignKey: "idFather",
+  as: "childrenFolders",
+});
+
+FolderModel.belongsTo(FolderModel, {
+  foreignKey: "idFather",
+  as: "parentFolder",
+});
 
 export default FolderModel;
