@@ -5,7 +5,12 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js"
+    "start": "node src/index.js",
+    "start:dev": "nodemon src/index.js",
+    "db:migrate": "node node_modules/db-migrate/bin/db-migrate up",
+    "db:migrate:create": "node node_modules/db-migrate/bin/db-migrate create",
+    "db:migrate:down": "node node_modules/db-migrate/bin/db-migrate down",
+    "db:migrate:reset": "node node_modules/db-migrate/bin/db-migrate reset"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +18,9 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "db-migrate": "^0.11.14",
+    "db-migrate-pg": "^1.5.2",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "pg": "^8.16.0",
     "pg-hstore": "^2.3.4",

@@ -1,0 +1,11 @@
+{
+  "defaultEnv": "pg",
+  "pg": {
+    "driver": "pg",
+    "user": { "ENV": "USER_DB" },
+    "password": { "ENV": "PASSWORD_DB" },
+    "host": { "ENV": "HOST_DB" },
+    "database": { "ENV": "DATABASE_NAME" },
+    "port": { "ENV": "PORT_DB" }
+  }
+}
