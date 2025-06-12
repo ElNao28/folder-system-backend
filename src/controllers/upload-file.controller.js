@@ -1,5 +1,8 @@
 import fs from "fs";
-import { createDirectoryToSave } from "../services/upload-file.service.js";
+import {
+  createDirectoryToSave,
+  existFile,
+} from "../services/upload-file.service.js";
 import path from "path";
 
 const uploadFile = async (req, res) => {
@@ -32,11 +35,15 @@ const uploadFile = async (req, res) => {
 const getFileByPath = (req, res) => {
   try {
     const { fileName, directory } = req.params;
-    console.log(fileName, directory);
-    return res.status(200).json({
-      message: "Success",
-      status: 200,
-    });
+
+    if (!existFile(directory, fileName)) {
+      return res.status(404).json({
+        message: "File not found",
+        status: 404,
+      });
+    }
+    const fullPath = path.join(process.cwd(), "uploads", directory, fileName);
+    return res.status(200).sendFile(fullPath);
   } catch (error) {
     console.log(error);
     throw new Error(error);
