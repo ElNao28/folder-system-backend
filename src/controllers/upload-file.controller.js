@@ -1,5 +1,6 @@
 import fs from "fs";
 import { createDirectoryToSave } from "../services/upload-file.service.js";
+import path from "path";
 
 const uploadFile = async (req, res) => {
   try {
@@ -12,10 +13,12 @@ const uploadFile = async (req, res) => {
       });
     }
 
-    fs.writeFileSync(
-      createDirectoryToSave("folder") + file.originalname,
-      file.buffer
+    const fullPath = path.join(
+      createDirectoryToSave("folder"),
+      file.originalname
     );
+
+    fs.writeFileSync(fullPath, file.buffer);
     return res.status(200).json({
       message: "File upload",
       status: 200,
@@ -26,4 +29,18 @@ const uploadFile = async (req, res) => {
   }
 };
 
-export { uploadFile };
+const getFileByPath = (req, res) => {
+  try {
+    const { fileName, directory } = req.params;
+    console.log(fileName, directory);
+    return res.status(200).json({
+      message: "Success",
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
+export { uploadFile, getFileByPath };

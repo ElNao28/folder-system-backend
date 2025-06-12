@@ -1,16 +1,13 @@
 import fs from "fs";
-
 const createDirectoryToSave = (directory) => {
   try {
-    const directoryPath = `./uploads`;
+    const directoryPath = `./uploads/${directory}`;
 
     if (!fs.existsSync(directoryPath)) {
-      fs.mkdirSync("./uploads");
+      fs.mkdirSync(directoryPath, { recursive: true });
     }
 
-    const path = `${directoryPath}/${directory}`;
-
-    return path;
+    return directoryPath;
   } catch (error) {
     console.log(error);
     throw new Error(error);
